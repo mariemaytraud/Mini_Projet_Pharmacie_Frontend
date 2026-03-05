@@ -1,10 +1,11 @@
 
 <script setup>
 import { reactive, onMounted } from 'vue';
-import { getMedicaments } from '@/service/APIservice.js';
 import { Medicament } from '@/model/Medicament.js';
 import MedicamentCard from '@/components/MedicamentCard.vue';
-import { ajouterMedicament, supprimerMedicament, modifierMedicament } from '@/service/APIservice.js';
+import {getMedicaments, ajouterMedicament, supprimerMedicament, modifierMedicament } from '@/service/APIservice.js';
+import MedicamentFormulaire from '@/components/MedicamentFormulaire.vue';
+
 const listeMedicaments = reactive([]);
 
 function chargerMedicaments() {
@@ -45,6 +46,12 @@ function handlerRetirer(med) {
   }
 }
 
+function handlerAjouterNouveau(med) {
+  ajouterMedicament(med).then(() => {
+    chargerMedicaments();
+  });
+}
+
 onMounted(() => {
   chargerMedicaments();
 });
@@ -53,6 +60,8 @@ onMounted(() => {
 <template>
   <v-container>
     <h1 class="text-center MaPharmacie"> Ma Pharmacie</h1>
+
+    <MedicamentFormulaire @addMed="handlerAjouterNouveau" />
 
     <v-row>
       <v-col v-for="med in listeMedicaments" :key="med.id" cols="3">

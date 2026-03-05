@@ -2,7 +2,7 @@
 <script setup>
 import { reactive, onMounted } from 'vue';
 import { getMedicaments } from '@/service/APIservice.js';
-import { Medicament } from '@/models/Medicament.js';
+import { Medicament } from '@/model/Medicament.js';
 import MedicamentCard from '@/components/MedicamentCard.vue';
 
 const listeMedicaments = reactive([]);

@@ -18,7 +18,7 @@ export function getMedicaments() {
 export function ajouterMedicament(nouveauMedicament) {
   const fetchOptions = { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(nouveauMedicament) };
  
-  fetch(urlAPI, fetchOptions)
+  return fetch(urlAPI, fetchOptions)
   .then((response) => {return response.json();})
   .catch((error) => {
   console.log(error);

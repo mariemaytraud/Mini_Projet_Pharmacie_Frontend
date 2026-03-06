@@ -11,7 +11,7 @@
 
     <v-card-actions>
       <v-btn color="red" @click="$emit('supprimer', medicament.id)">Supprimer</v-btn>
-      <v-btn color="blue" @click="$emit('modifier', medicament)">Modifier</v-btn>
+      <v-btn color="blue">Modifier</v-btn>
       <v-btn color="green" @click="$emit('ajouterStock', medicament)">+1</v-btn>
       <v-btn color="orange" @click="$emit('retirerStock', medicament)">-1</v-btn>
     </v-card-actions>

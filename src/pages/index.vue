@@ -25,6 +25,12 @@ function chargerMedicaments() {
 }
 
 function handlerSupprimer(id) {
+  if (med.uniteEnStock > 0) {
+    med.uniteEnStock = med.uniteEnStock - 1;
+    modifierMedicament(med).then(() => {
+      chargerMedicaments();
+    });
+  }
   supprimerMedicament(id).then(() => {
     chargerMedicaments();
   });

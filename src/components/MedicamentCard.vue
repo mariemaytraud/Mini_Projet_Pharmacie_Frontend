@@ -1,12 +1,12 @@
 <template>
-  <v-card width="250">
+  <v-card width="100">
     <v-img :src="medicament.photo" height="150"></v-img>
 
     <v-card-title>{{ medicament.nom }}</v-card-title>
     <v-card-subtitle>{{ medicament.quantiteParUnite }}</v-card-subtitle>
 
     <v-card-text>
-      <p>Stock : {{ medicament.quantiteStock }}</p>
+      <p>Stock : {{ medicament.uniteEnStock }}</p>
     </v-card-text>
 
     <v-card-actions>

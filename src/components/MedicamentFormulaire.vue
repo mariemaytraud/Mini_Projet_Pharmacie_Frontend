@@ -28,7 +28,7 @@ function ajouter() {
     const nouveauMedicament = {
         nom: nom.value,
         quantiteParUnite: forme.value,
-        quantiteStock: stock.value,
+        quantiteEnStock: parseInt(stock.value),
         imageURL: photo.value
     };
 

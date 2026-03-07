@@ -55,5 +55,5 @@ defineProps({
   }
 });
 
-defineEmits(['supprimer', 'ajouterStock', 'retirerStock,']);
+defineEmits(['supprimer', 'ajouterStock', 'retirerStock', 'editer']);
 </script>

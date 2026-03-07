@@ -9,7 +9,7 @@
       @supprimer="handlerSupprimer" 
       @ajouterStock="handlerAjouter" 
       @retirerStock="handlerRetirer"
-      @editer="OuvrirEditeur"
+      @editer="OuvrirEdition"
     />
 
     <div class="text-center mt-4">
@@ -44,6 +44,7 @@
 </template>
 
 <script setup>
+
 import { reactive, onMounted, ref } from 'vue';
 import { Medicament } from '@/model/Medicament.js';
 import TableauMedicaments from '@/components/TableauMedicaments.vue';
@@ -128,8 +129,24 @@ function handlerAjouterNouveau(med) {
   });
 }
 
-// Au chargement de la page, on appelle l'API
+// La fonction manquante pour enregistrer la modification !
+function sauvegarderModification() {
+  modifierMedicamentComplet(
+    medEdition.id, 
+    medEdition.nom, 
+    medEdition.forme, 
+    medEdition.stock, 
+    medEdition.photo, 
+    medEdition.categorieId
+  ).then(() => {
+    dialogEdition.value = false; // Ferme la popup
+    chargerMedicaments();        // Met à jour le tableau
+  });
+}
+
+// Au chargement de la page, on appelle l'API pour les médicaments ET les catégories
 onMounted(() => {
   chargerMedicaments();
+  chargerCategories(); 
 });
 </script>

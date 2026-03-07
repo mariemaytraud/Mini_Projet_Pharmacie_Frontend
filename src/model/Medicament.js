@@ -4,7 +4,8 @@ export class Medicament {
   
     // pour récupérer l'ID caché par Spring Boot
     if (medicamentJSON._links && medicamentJSON._links.self) {
-      const url = medicamentJSON._links.self.href;
+      let url = medicamentJSON._links.self.href;
+    
       url = url.split('{')[0]; // On enlève la partie entre accolades
       const urlCoupee = url.split('/');
       this.id = urlCoupee[urlCoupee.length - 1]; // On prend le dernier chiffre de l'URL

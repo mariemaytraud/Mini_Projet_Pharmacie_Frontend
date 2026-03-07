@@ -14,11 +14,11 @@ export class Medicament {
     }
   
   //this._id = medicamentJSON.reference 
-  this._nom = medicamentJSON.nom // on met un nom plus simple que dans le json
-  this._quantiteParUnite = medicamentJSON.quantiteParUnite
-  this._quantiteStock = medicamentJSON.unitesEnStock
-  this._photo= medicamentJSON.imageURL
+  this.nom = medicamentJSON.nom // on met un nom plus simple que dans le json
+  this.quantiteParUnite = medicamentJSON.quantiteParUnite
+  this.quantiteStock = medicamentJSON.unitesEnStock
+  this.photo= medicamentJSON.imageURL
   }
 
-  toString() { return `--> ${this._nom} (${ this._quantiteParUnite})`; }
+  toString() { return `--> ${this.nom} (${ this.quantiteParUnite})`; }
   }

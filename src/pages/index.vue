@@ -10,11 +10,21 @@
       @ajouterStock="handlerAjouter" 
       @retirerStock="handlerRetirer"
     />
+
+    <div class="text-center mt-4">
+      <v-pagination
+        v-model="pageCourante"
+        :length="totalPages"
+        @update:modelValue="chargerMedicaments"
+        color="blue"
+      ></v-pagination>
+    </div>
+
   </v-container>
 </template>
 
 <script setup>
-import { reactive, onMounted } from 'vue';
+import { reactive, onMounted, ref } from 'vue';
 import { Medicament } from '@/model/Medicament.js';
 import TableauMedicaments from '@/components/TableauMedicaments.vue';
 import MedicamentFormulaire from '@/components/MedicamentFormulaire.vue';
@@ -22,15 +32,20 @@ import { getMedicaments, ajouterMedicament, supprimerMedicament, modifierStockMe
 
 const listeMedicaments = reactive([]);
 
+const pageCourante = ref(1); 
+const totalPages = ref(1);
 // 1. RECHARGER LE TABLEAU
 function chargerMedicaments() {
-  getMedicaments().then((dataJSON) => {
+  getMedicaments(pageCourante.value - 1, 10).then((dataJSON) => {
     if (dataJSON && dataJSON._embedded && dataJSON._embedded.medicaments) {
       let medsBruts = dataJSON._embedded.medicaments;
       listeMedicaments.splice(0, listeMedicaments.length); // On vide la liste
       medsBruts.forEach((medJson) => {
         listeMedicaments.push(new Medicament(medJson)); // On la remplit avec les nouveaux
       });
+      if (dataJSON.page) {
+        totalPages.value = dataJSON.page.totalPages;
+      }
     }
   });
 }

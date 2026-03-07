@@ -34,13 +34,15 @@ export function ajouterMedicament(nouveauMedicament) {
     });
 }
 
-export function modifierMedicament(id, medicamentModifie) {
-  const fetchOptions = { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(medicamentModifie) };
-
-return fetch(urlAPI + "/" + id, fetchOptions)
-.then((response) => {return response.json();})
-.catch((error) => {
-console.log(error);
-});
+export function modifierStockMedicament(id, nouvelleQuantite) {
+  return fetch(urlAPI + "/" + id, {
+    method: "PATCH", 
+    headers: { "Content-Type": "application/json" },
+    
+    body: JSON.stringify({ unitesEnStock: nouvelleQuantite }) 
+  }).then((res) => {
+    if (!res.ok) throw new Error("Erreur serveur lors de la modification du stock");
+    return res.json();
+  });
 }
 

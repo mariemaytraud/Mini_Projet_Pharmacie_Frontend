@@ -3,7 +3,7 @@
 import { reactive, onMounted } from 'vue';
 import { Medicament } from '@/model/Medicament.js';
 import TableauMedicaments from '@/components/TableauMedicaments.vue';
-import {getMedicaments, ajouterMedicament, supprimerMedicament, modifierMedicament } from '@/service/APIservice.js';
+import {getMedicaments, ajouterMedicament, supprimerMedicament, modifierStockMedicament } from '@/service/APIservice.js';
 import MedicamentFormulaire from '@/components/MedicamentFormulaire.vue';
 
 const listeMedicaments = reactive([]);
@@ -32,15 +32,14 @@ function handlerSupprimer(idRecu) {
 
 function handlerAjouter(med) {
   const medModifie = {...med, quantiteStock: med.quantiteStock + 1};
-  modifierMedicament(medModifie).then(() => {
+  modifierStockMedicament(medModifie).then(() => {
   chargerMedicaments();
   });
 }
 
 function handlerRetirer(med) {
   if(med.quantiteStock > 0) {
-    const medModifie = {...med, quantiteStock: med.quantiteStock - 1};
-    modifierMedicament(medModifie).then(() => {
+  modifierStockMedicament(med.id, med.quantiteStock - 1).then(() => {
       chargerMedicaments();
     });
   }

@@ -19,12 +19,6 @@ export class Medicament {
   this._quantiteStock = medicamentJSON.unitesEnStock
   this._photo= medicamentJSON.imageURL
   }
-  // getters
-  get id() { return this._id }
-  get nom() { return this._nom }
-  get quantiteParUnite() { return this._quantiteParUnite }
-  get quantiteStock() { return this._quantiteStock }
-  get photo() { return this._photo }
 
   toString() { return `--> ${this._nom} (${ this._quantiteParUnite})`; }
   }

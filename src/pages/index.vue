@@ -9,7 +9,7 @@
       @supprimer="handlerSupprimer" 
       @ajouterStock="handlerAjouter" 
       @retirerStock="handlerRetirer"
-      @editer="OuvrirEdition"
+      @editer="ouvrirEdition"
     />
 
     <div class="text-center mt-4">

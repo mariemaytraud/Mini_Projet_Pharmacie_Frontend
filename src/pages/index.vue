@@ -2,7 +2,7 @@
 <script setup>
 import { reactive, onMounted } from 'vue';
 import { Medicament } from '@/model/Medicament.js';
-import MedicamentCard from '@/components/MedicamentCard.vue';
+import TableauMedicaments from '@/components/TableauMedicaments.vue';
 import {getMedicaments, ajouterMedicament, supprimerMedicament, modifierMedicament } from '@/service/APIservice.js';
 import MedicamentFormulaire from '@/components/MedicamentFormulaire.vue';
 
@@ -69,15 +69,12 @@ onMounted(() => {
 
     <MedicamentFormulaire @addMed="handlerAjouterNouveau" />
 
-    <v-row>
-      <v-col v-for="med in listeMedicaments" :key="med.id" cols="3">
-        <MedicamentCard :medicament="med" 
-          @supprimer="handlerSupprimer" 
-          @ajouterStock="handlerAjouter" 
-          @retirerStock="handlerRetirer"
-        />
-      </v-col>
-    </v-row>
+    <TableauMedicaments 
+      :medicaments="listeMedicaments" 
+      @supprimer="handlerSupprimer" 
+      @ajouterStock="handlerAjouter" 
+      @retirerStock="handlerRetirer"
+    />
   </v-container>
 </template>
 

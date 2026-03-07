@@ -24,12 +24,22 @@
           <span class="text-subtitle-1 font-weight-bold">{{ med.quantiteStock }}</span>
           <v-btn icon="mdi-plus" size="x-small" variant="tonal" color="green" class="ml-2" @click="$emit('ajouterStock', med)"></v-btn>
         </td>
-        
         <td class="text-center">
-          <v-btn color="red" variant="flat" size="small" prepend-icon="mdi-delete" @click="$emit('supprimer', med.id)">
-            Supprimer
-          </v-btn>
-        </td>
+  <v-btn 
+    color="orange-darken-1" 
+    variant="flat" 
+    size="small" 
+    prepend-icon="mdi-pencil" 
+    class="mr-2"
+    @click="$emit('editer', med)"
+  >
+    Modifier
+  </v-btn>
+
+  <v-btn color="red" variant="flat" size="small" prepend-icon="mdi-delete" @click="$emit('supprimer', med.id)">
+    Supprimer
+  </v-btn>
+</td>
       </tr>
     </tbody>
   </v-table>
@@ -45,5 +55,5 @@ defineProps({
   }
 });
 
-defineEmits(['supprimer', 'ajouterStock', 'retirerStock']);
+defineEmits(['supprimer', 'ajouterStock', 'retirerStock,']);
 </script>

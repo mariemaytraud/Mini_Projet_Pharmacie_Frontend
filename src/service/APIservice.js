@@ -70,4 +70,40 @@ export function modifierStockMedicament(id, nouvelleQuantite) {
     return res.json();
   });
 }
+export function modifierMedicament(id, medModifie) {
+  const medAEnvoyer = {
+    nom: medModifie.nom,
+    quantiteParUnite: medModifie.quantiteParUnite,
+    unitesEnStock: medModifie.unitesEnStock,
+    imageURL: medModifie.photo,
+    categorie: `https://projet-pharmacie-maytraud.onrender.com/api/categories/${medModifie.categorieId}`
+  };
 
+  return fetch(urlAPI + "/" + id, {
+    method: "PUT", 
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(medAEnvoyer)
+  }).then((res) => {
+    if (!res.ok) throw new Error("Erreur lors de la modification");
+    return res.json();
+  });
+}
+
+// Fonction pour remplacer TOUT le médicament
+export function modifierMedicamentComplet(id, nom, forme, stock, photo, categorieId) {
+  const medAEnvoyer = {
+    nom: nom,
+    quantiteParUnite: forme,
+    unitesEnStock: parseInt(stock),
+    imageURL: photo,
+    categorie: "https://projet-pharmacie-maytraud.onrender.com/api/categories/" + categorieId
+  };
+
+  return fetch(urlAPI + "/" + id, {
+    method: "PUT", // PUT sert à écraser l'ancien
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(medAEnvoyer)
+  }).then((res) => {
+    if (!res.ok) throw new Error("Erreur lors de la modification");
+  });
+}

@@ -15,9 +15,7 @@ export function getMedicaments() {
   console.log(error);
   });
   }
-
 export function ajouterMedicament(nouveauMedicament) {
-  // On s'assure d'envoyer les bons mots au serveur (imageURL au lieu de photo, etc.)
   const medAEnvoyer = {
     nom: nouveauMedicament.nom,
     quantiteParUnite: nouveauMedicament.quantiteParUnite || nouveauMedicament.forme || "",
@@ -25,35 +23,41 @@ export function ajouterMedicament(nouveauMedicament) {
     imageURL: nouveauMedicament.photo || nouveauMedicament.imageURL || "https://via.placeholder.com/150"
   };
 
-  const fetchOptions = { 
-    method: "POST", 
-    headers: { "Content-Type": "application/json" }, 
-    body: JSON.stringify(medAEnvoyer) 
-  };
- 
-  return fetch(urlAPI, fetchOptions)
-    .then((response) => {
-      if (!response.ok) throw new Error("Erreur lors de l'ajout");
-      // ⚠️ LE SECRET : On ne fait SURTOUT PAS response.json() ici car Spring Boot renvoie du vide !
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  return fetch(urlAPI, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(medAEnvoyer)
+  })
+  .then(async (response) => {
+    // Si le serveur n'est pas content (ex: 409)
+    if (!response.ok) {
+      const messageServeur = await response.text();
+      throw new Error(`Refus du serveur (${response.status}) : ${messageServeur}`);
+    }
+  })
+  .catch((error) => {
+    console.error("🛑 DÉTAIL DU CRASH (AJOUT) :", error);
+    throw error;
+  });
 }
 
 export function supprimerMedicament(id) {
-  const fetchOptions = { method: "DELETE" };
-
-  return fetch(urlAPI + "/" + id, fetchOptions)
-    .then((response) => {
-      if (!response.ok) throw new Error("Erreur lors de la suppression");
-      // Pareil, on attend juste que ça se termine sans essayer de lire un JSON
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  console.log("🗑️ Tentative de suppression du médicament ID :", id);
+  
+  return fetch(urlAPI + "/" + id, {
+    method: "DELETE"
+  })
+  .then(async (response) => {
+    if (!response.ok) {
+      const messageServeur = await response.text();
+      throw new Error(`Refus du serveur (${response.status}) : ${messageServeur}`);
+    }
+  })
+  .catch((error) => {
+    console.error("🛑 DÉTAIL DU CRASH (SUPPRESSION) :", error);
+    throw error;
+  });
 }
-
 export function modifierStockMedicament(id, nouvelleQuantite) {
   return fetch(urlAPI + "/" + id, {
     method: "PATCH", 

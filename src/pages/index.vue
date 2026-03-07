@@ -31,16 +31,16 @@ function handlerSupprimer(idRecu) {
   }
 
 function handlerAjouter(med) {
-med.quantiteStock = med.quantiteStock + 1;
-modifierMedicament(med).then(() => {
+  const medModifie = {...med, quantiteStock: med.quantiteStock + 1};
+  modifierMedicament(medModifie).then(() => {
   chargerMedicaments();
-});
+  });
 }
 
-function handlerRetirer(idRecu) {
+function handlerRetirer(med) {
   if(med.quantiteStock > 0) {
-    med.quantiteStock = med.quantiteStock - 1;
-    modifierMedicament(med).then(() => {
+    const medModifie = {...med, quantiteStock: med.quantiteStock - 1};
+    modifierMedicament(medModifie).then(() => {
       chargerMedicaments();
     });
   }
@@ -50,8 +50,8 @@ function handlerRetirer(idRecu) {
 
   }
 
-function handlerAjouterNouveau(med) {
-  ajouterMedicament(med).then(() => {
+function handlerAjouterNouveau(nouveauMed) {
+  ajouterMedicament(nouveauMed).then(() => {
     chargerMedicaments();
   });
 }

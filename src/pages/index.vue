@@ -24,17 +24,11 @@ function chargerMedicaments() {
   });
 }
 
-function handlerSupprimer(id) {
-  if (med.uniteEnStock > 0) {
-    med.uniteEnStock = med.uniteEnStock - 1;
-    modifierMedicament(med).then(() => {
+function handlerSupprimer(idRecu) {
+  supprimerMedicament(idRecu).then(() => {
       chargerMedicaments();
     });
   }
-  supprimerMedicament(id).then(() => {
-    chargerMedicaments();
-  });
-}
 
 function handlerAjouter(med) {
 med.quantiteStock = med.quantiteStock + 1;
@@ -43,14 +37,18 @@ modifierMedicament(med).then(() => {
 });
 }
 
-function handlerRetirer(med) {
-  if (med.quantiteStock > 0) {
+function handlerRetirer(idRecu) {
+  if(med.quantiteStock > 0) {
     med.quantiteStock = med.quantiteStock - 1;
     modifierMedicament(med).then(() => {
       chargerMedicaments();
     });
   }
-}
+  supprimerMedicament(idRecu).then(() => {
+      chargerMedicaments();
+    });
+
+  }
 
 function handlerAjouterNouveau(med) {
   ajouterMedicament(med).then(() => {

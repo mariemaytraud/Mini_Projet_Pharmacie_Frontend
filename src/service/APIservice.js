@@ -3,7 +3,7 @@ const urlAPI = "https://projet-pharmacie-maytraud.onrender.com/api/medicaments";
 export function getMedicaments() {
   const fetchOptions = { method: "GET" };
    
-  return fetch(urlAPI, fetchOptions)
+  return fetch(urlAPI + "?size=100", fetchOptions)
   .then((response) => {
   return response.json();
   })

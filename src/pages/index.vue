@@ -3,9 +3,17 @@
     <h1 class="text-center MaPharmacie mb-5"> Ma Pharmacie</h1>
 
     <MedicamentFormulaire @addMed="handlerAjouterNouveau" />
+    <v-text-field
+      v-model="recherche"
+      label="Rechercher un médicament sur cette page"
+      prepend-inner-icon="mdi-magnify"
+      variant="outlined"
+      clearable
+      class="mt-4 mb-4"
+    ></v-text-field>
 
     <TableauMedicaments 
-      :medicaments="listeMedicaments" 
+      :medicaments="listeFiltree" 
       @supprimer="handlerSupprimer" 
       @ajouterStock="handlerAjouter" 
       @retirerStock="handlerRetirer"
@@ -45,7 +53,7 @@
 
 <script setup>
 
-import { reactive, onMounted, ref } from 'vue';
+import { reactive, onMounted, ref, computed } from 'vue';
 import { Medicament } from '@/model/Medicament.js';
 import TableauMedicaments from '@/components/TableauMedicaments.vue';
 import MedicamentFormulaire from '@/components/MedicamentFormulaire.vue';
@@ -55,6 +63,18 @@ const listeMedicaments = reactive([]);
 
 const pageCourante = ref(1); 
 const totalPages = ref(1);
+const recherche = ref("");
+
+const listeFiltree = computed(() => {
+  // Si la barre est vide, on affiche tous les médicaments de la page
+  if (!recherche.value) {
+    return listeMedicaments;
+  }
+  // Sinon, on garde seulement ceux dont le nom contient les lettres tapées (en ignorant les majuscules/minuscules)
+  return listeMedicaments.filter(med => 
+    med.nom.toLowerCase().includes(recherche.value.toLowerCase())
+  );
+});
 
 const dialogEdition = ref(false);
 const listeCategories = ref([]);

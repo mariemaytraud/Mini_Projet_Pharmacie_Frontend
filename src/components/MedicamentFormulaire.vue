@@ -20,7 +20,15 @@
             <v-text-field v-model="forme" label="Forme (ex: Gélules)" variant="outlined" class="mb-2"></v-text-field>
             <v-text-field v-model="stock" label="Stock" type="number" variant="outlined" class="mb-2"></v-text-field>
             <v-text-field v-model="photo" label="Lien photo" variant="outlined"></v-text-field>
-            
+            <v-select
+              v-model="categorieSelectionnee"
+              :items="listeCategories"
+              item-title="nom"
+              item-value="id"
+              label="Catégorie"
+              variant="outlined"
+              class="mb-2"
+            ></v-select>
             <v-card-actions>
               <v-spacer></v-spacer> <v-btn text="Annuler" variant="plain" @click="isActive.value = false"></v-btn>
               <v-btn color="blue" type="submit" variant="flat">Ajouter</v-btn>
@@ -29,7 +37,6 @@
         </v-card-text>
       </v-card>
     </template>
-    
   </v-dialog>
 </template>
 
@@ -41,6 +48,15 @@ const forme = ref("");
 const stock = ref(0);
 const photo = ref("");
 
+const categorieSelectionnee = ref(1);
+const listeCategories = [
+  { id: 1, nom: "Antibiotiques" },
+  { id: 2, nom: "Analgésiques" },
+  { id: 3, nom: "Anti-inflammatoires" },
+  { id: 4, nom: "Antiviraux" },
+  { id: 5, nom: "Vaccins" }
+];
+
 const emit = defineEmits(["addMed"]);
 
 //reçoit "isActive" depuis le HTML pour pouvoir ordonner la fermeture
@@ -49,7 +65,8 @@ function ajouter(isActive) {
     nom: nom.value,
     quantiteParUnite: forme.value,
     unitesEnStock: parseInt(stock.value),
-    photo: photo.value
+    photo: photo.value,
+    categorieId: categorieSelectionnee.value
   };
 
   //envoie au parent
@@ -60,6 +77,7 @@ function ajouter(isActive) {
   forme.value = "";
   stock.value = 0;
   photo.value = "";
+  categorieSelectionnee.value = 1;
   
   //ferme la popup automatiquement
   isActive.value = false;

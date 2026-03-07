@@ -20,7 +20,8 @@ export function ajouterMedicament(nouveauMedicament) {
     nom: nouveauMedicament.nom,
     quantiteParUnite: nouveauMedicament.quantiteParUnite || nouveauMedicament.forme || "",
     unitesEnStock: nouveauMedicament.unitesEnStock || nouveauMedicament.quantiteStock || nouveauMedicament.stock || 0,
-    imageURL: nouveauMedicament.photo || nouveauMedicament.imageURL || "https://via.placeholder.com/150"
+    imageURL: nouveauMedicament.photo || nouveauMedicament.imageURL || "https://via.placeholder.com/150",
+    categorie: "https://projet-pharmacie-maytraud.onrender.com/api/categories/" + nouveauMedicament.categorieId
   };
 
   return fetch(urlAPI, {

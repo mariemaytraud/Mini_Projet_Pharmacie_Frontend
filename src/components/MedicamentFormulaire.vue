@@ -59,7 +59,7 @@ const listeCategories = [
 
 const emit = defineEmits(["addMed"]);
 
-//reçoit "isActive" depuis le HTML pour pouvoir ordonner la fermeture
+
 function ajouter(isActive) {
   const nouveauMedicament = {
     nom: nom.value,

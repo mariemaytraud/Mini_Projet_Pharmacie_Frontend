@@ -66,11 +66,11 @@ const totalPages = ref(1);
 const recherche = ref("");
 
 const listeFiltree = computed(() => {
-  // Si la barre est vide, on affiche tous les médicaments de la page
+  
   if (!recherche.value) {
     return listeMedicaments;
   }
-  // Sinon, on garde seulement ceux dont le nom contient les lettres tapées (en ignorant les majuscules/minuscules)
+  
   return listeMedicaments.filter(med => 
     med.nom.toLowerCase().includes(recherche.value.toLowerCase())
   );
@@ -79,7 +79,8 @@ const listeFiltree = computed(() => {
 const dialogEdition = ref(false);
 const listeCategories = ref([]);
 const medEdition = reactive({ id: null, nom: "", forme: "", stock: 0, photo: "", categorieId: 1 });
-// 1. RECHARGER LE TABLEAU
+
+
 function chargerMedicaments() {
   getMedicaments(pageCourante.value - 1, 10).then((dataJSON) => {
     if (dataJSON && dataJSON._embedded && dataJSON._embedded.medicaments) {
@@ -108,7 +109,7 @@ function chargerCategories() {
       }
     });
 }
-// 2. SUPPRIMER
+
 function handlerSupprimer(id) {
   supprimerMedicament(id).then(() => {
     chargerMedicaments();
@@ -126,14 +127,14 @@ function ouvrirEdition(med) {
   medEdition.photo = med.photo; 
  dialogEdition.value = true; // Ouvre la popup
 }
-// 3. AJOUTER DU STOCK (+1)
+// +1
 function handlerAjouter(med) {
   modifierStockMedicament(med.id, med.quantiteStock + 1).then(() => {
     chargerMedicaments();
   });
 }
 
-// 4. RETIRER DU STOCK (-1)
+// -1
 function handlerRetirer(med) {
   if (med.quantiteStock > 0) {
     modifierStockMedicament(med.id, med.quantiteStock - 1).then(() => {
@@ -142,14 +143,14 @@ function handlerRetirer(med) {
   }
 }
 
-// 5. AJOUTER UN NOUVEAU MÉDICAMENT
+
 function handlerAjouterNouveau(med) {
   ajouterMedicament(med).then(() => {
     chargerMedicaments();
   });
 }
 
-// La fonction manquante pour enregistrer la modification !
+
 function sauvegarderModification() {
   modifierMedicamentComplet(
     medEdition.id, 
@@ -164,7 +165,6 @@ function sauvegarderModification() {
   });
 }
 
-// Au chargement de la page, on appelle l'API pour les médicaments ET les catégories
 onMounted(() => {
   chargerMedicaments();
   chargerCategories(); 

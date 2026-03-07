@@ -30,20 +30,20 @@ export function ajouterMedicament(nouveauMedicament) {
     body: JSON.stringify(medAEnvoyer)
   })
   .then(async (response) => {
-    // Si le serveur n'est pas content (ex: 409)
+   
     if (!response.ok) {
       const messageServeur = await response.text();
       throw new Error(`Refus du serveur (${response.status}) : ${messageServeur}`);
     }
   })
   .catch((error) => {
-    console.error("🛑 DÉTAIL DU CRASH (AJOUT) :", error);
+    console.error("DÉTAIL DU CRASH :", error);
     throw error;
   });
 }
 
 export function supprimerMedicament(id) {
-  console.log("🗑️ Tentative de suppression du médicament ID :", id);
+  console.log(" Tentative de suppression du médicament ID :", id);
   
   return fetch(urlAPI + "/" + id, {
     method: "DELETE"
@@ -55,7 +55,7 @@ export function supprimerMedicament(id) {
     }
   })
   .catch((error) => {
-    console.error("🛑 DÉTAIL DU CRASH (SUPPRESSION) :", error);
+    console.error(" DÉTAIL DU CRASH (SUPPRESSION) :", error);
     throw error;
   });
 }
@@ -89,7 +89,7 @@ export function modifierMedicament(id, medModifie) {
   });
 }
 
-// Fonction pour remplacer TOUT le médicament
+
 export function modifierMedicamentComplet(id, nom, forme, stock, photo, categorieId) {
   const medAEnvoyer = {
     nom: nom,
@@ -100,7 +100,7 @@ export function modifierMedicamentComplet(id, nom, forme, stock, photo, categori
   };
 
   return fetch(urlAPI + "/" + id, {
-    method: "PUT", // PUT sert à écraser l'ancien
+    method: "PUT", 
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(medAEnvoyer)
   }).then((res) => {

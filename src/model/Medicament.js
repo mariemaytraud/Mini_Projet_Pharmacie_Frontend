@@ -13,7 +13,7 @@ export class Medicament {
       this.id = medicamentJSON.id; 
     }
   
-  //this._id = medicamentJSON.reference 
+  
   this.nom = medicamentJSON.nom // on met un nom plus simple que dans le json
   this.quantiteParUnite = medicamentJSON.quantiteParUnite
   this.quantiteStock = medicamentJSON.unitesEnStock

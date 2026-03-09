@@ -54,7 +54,13 @@ const listeCategories = [
   { id: 2, nom: "Analgésiques" },
   { id: 3, nom: "Anti-inflammatoires" },
   { id: 4, nom: "Antiviraux" },
-  { id: 5, nom: "Vaccins" }
+  { id: 5, nom: "Vaccins" },
+  { id: 6, nom: "Anxiolitique" },
+  { id: 7, nom: "Antidépresseurs" },
+  { id: 8, nom: "Antihypertenseurs" },
+  { id: 9, nom: "Diabétiques" },
+  { id: 10, nom: "Cardiovasculaires" },
+  { id: 11, nom: "Autres" }
 ];
 
 const emit = defineEmits(["addMed"]);
